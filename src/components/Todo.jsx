@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import todo from '../assets/Todo.png'
 import TodoItems from './TodoItems'
 
 function Todo() {
-  const [Todo , setTodo] = useState([])
+  const [Todo , setTodo] = useState(localStorage.getItem("todos" ) ? JSON.parse(localStorage.getItem("todos")) : [] )
   const inputRef = useRef()
 
   const add = () =>{
@@ -30,6 +30,23 @@ function Todo() {
 
   }
 
+  const toggle = (id) => {
+    setTodo((prevTodo) => {
+      return prevTodo.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, isComplete: !todo.isComplete };
+        }
+        return todo;
+      });
+    });
+  };
+
+  useEffect(() =>{
+    console.log(Todo)
+
+    localStorage.setItem("todos" ,  JSON.stringify(Todo))
+
+  }, [Todo])
 
   return (
     <div className='bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 h-96 rounded-lg shadow-lg'>
@@ -52,7 +69,7 @@ function Todo() {
         {/* -------------List-------------- */}
         <div>
         {Todo.map ((item,index) =>{
-          return <TodoItems key={index} task={item.text} id={item.id} isComplete = {item.isComplete} deleteTodo = {deleteTodo} />
+          return <TodoItems key={index} task={item.text} id={item.id} isComplete = {item.isComplete} deleteTodo = {deleteTodo}  toggle = {toggle} />
         })}
 
         

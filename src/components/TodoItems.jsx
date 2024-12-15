@@ -1,13 +1,14 @@
 import React from 'react'
-import done from '../assets/done.png'
+import tick from '../assets/tick.png'
+import noTick from '../assets/not-tick.png'
 import del from '../assets/delete.png'
 
-function TodoItems({task , id , isComplete , deleteTodo}) {
+function TodoItems({task , id , isComplete , deleteTodo , toggle}) {
   return (
-    <div className='flex items-center my-5 gap-2'>
+    <div onClick={()=> toggle(id)} className='flex items-center my-5 gap-2'>
         <div className='flex flex-1 items-center cursor-pointer'>
-            <img src={done} alt='tick' />
-            <p className='ml-5 text-slate-800 font-medium'>{task}</p>
+            <img src={isComplete ? tick :noTick} alt='tick' />
+            <p className={`ml-5 text-slate-800 font-medium ${isComplete ?"line-through" : "" }`}>{task}</p>
             
         </div>
         <img onClick={() => deleteTodo(id)} src={del} alt='delete' className='cursor-pointer'/>
