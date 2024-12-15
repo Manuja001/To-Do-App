@@ -2,7 +2,7 @@ import React from 'react'
 import done from '../assets/done.png'
 import del from '../assets/delete.png'
 
-function TodoItems({task}) {
+function TodoItems({task , id , isComplete , deleteTodo}) {
   return (
     <div className='flex items-center my-5 gap-2'>
         <div className='flex flex-1 items-center cursor-pointer'>
@@ -10,7 +10,7 @@ function TodoItems({task}) {
             <p className='ml-5 text-slate-800 font-medium'>{task}</p>
             
         </div>
-        <img src={del} alt='delete' className='cursor-pointer'/>
+        <img onClick={() => deleteTodo(id)} src={del} alt='delete' className='cursor-pointer'/>
     </div>
   )
 }
